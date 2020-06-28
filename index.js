@@ -20,17 +20,19 @@ mongoose.connection.on('error', (err) => {
 
 (async () => {
     try {
-      const jsonarray = await csvToJson().fromFile(path.join(__dirname, './battles.csv'));
-      await BattleModel.deleteMany({});
-      await BattleModel.insertMany(jsonarray);
-      util.log(colors.green('Battle: CSV Data inserted into Mongo Successfully'));
+        const jsonarray = await csvToJson().fromFile(path.join(__dirname, './battles.csv'));
+        await BattleModel.deleteMany({});
+        await BattleModel.insertMany(jsonarray);
+        util.log(colors.green('Battle: CSV Data inserted into Mongo Successfully'));
     } catch (error) {
-      util.log(colors.red('Battle: Error while inserting Battle.csv data to Mongo'));
+        util.log(colors.red('Battle: Error while inserting Battle.csv data to Mongo'));
     }
-  })();
+})();
 
-app.listen(config.port, () => {
-    util.log(colors.green(`Game of Thrones API Backend Server started at Port: ${config.port}`));
+
+var port = process.env.PORT || 4001
+app.listen(port, () => {
+    util.log(colors.green(`Game of Thrones API Backend Server started at Port: ${port}`));
 });
 
 module.exports = app;
